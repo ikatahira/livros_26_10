@@ -4,7 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.PathVariable;
+import java.util.Optional;
 import application.models.Livro;
 import application.repositories.LivroRepository;
 
@@ -35,7 +36,15 @@ public class LivroController {
     livrosRepo.save(livro);
     return "redirect:/livro/list";
   }  
-
+  //atualizando os dados via formulário
+ @RequestMapping(value="/update/{id}")
+  public String formUpdate(Model model, @PathVariable int id ){
+    Optinal<Livro> livro=livrosRepo.findById(id);
+    if(!livro.isPresent())
+      return "redirect:/livro/list";
+    model.addAttribute("livro",livro.get());
+    return "redirect:/livro/update.jsp";
+  }  
 
 
 
