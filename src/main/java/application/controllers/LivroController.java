@@ -37,9 +37,9 @@ public class LivroController {
     return "redirect:/livro/list";
   }  
   //atualizando os dados via formulário
- @RequestMapping(value="/update/{id}")
+ @RequestMapping("/update/{id}")
   public String formUpdate(Model model, @PathVariable int id ){
-    Optinal<Livro> livro=livrosRepo.findById(id);
+    Optional<Livro> livro=livrosRepo.findById(id);
     if(!livro.isPresent())
       return "redirect:/livro/list";
     model.addAttribute("livro",livro.get());
